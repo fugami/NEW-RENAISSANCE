@@ -9,7 +9,7 @@ export default function Home() {
   const films = [
     {
       id: 1,
-      title: "The Florence Awakening",
+      title: "21 Days Til Launch",
       year: "2025",
       type: "Short Film",
       description: "A profound journey through the eyes of a modern artisan trapped in the echoes of the past.",
