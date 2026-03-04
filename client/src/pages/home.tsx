@@ -13,7 +13,7 @@ export default function Home() {
       year: "2026",
       type: "FEATURE LENGTH DOCUMENTARY",
       description: "Embedded documentary showing the messy truth behind the walls of one of the world's biggest ai startups.",
-      image: "/images/film-1.png",
+      image: "/images/film-1.jpg",
       trailerUrl: "https://x.com/amasad/status/2029251832460263632"
     },
     {
@@ -22,7 +22,16 @@ export default function Home() {
       year: "2026",
       type: "Short Film",
       description: "The emotional truth of building a startup.",
-      image: "/images/film-2.png",
+      image: "/images/film-2.jpg",
+      trailerUrl: "#"
+    },
+    {
+      id: 3,
+      title: "Dear Founder",
+      year: "2025",
+      type: "Short Film",
+      description: "A message for founders.",
+      image: "/images/film-2.jpg",
       trailerUrl: "#"
     },
   ];
