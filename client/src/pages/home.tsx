@@ -1,8 +1,11 @@
-import { Link } from "wouter";
-import { motion } from "framer-motion";
-import { ArrowRight, Play, Camera, Film } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Play } from "lucide-react";
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState<'home' | 'manifesto' | 'contact'>('home');
+  const [activeFilm, setActiveFilm] = useState(0);
+
   const films = [
     {
       id: 1,
@@ -31,123 +34,171 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen relative w-full overflow-hidden">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-6 mix-blend-difference text-primary-foreground">
-        <Link href="/" className="font-serif text-xl tracking-wider cursor-pointer">
-          N. RENAISSANCE
-        </Link>
-        <div className="flex gap-8 font-sans text-sm tracking-widest uppercase">
-          <a href="#work" className="hover:opacity-70 transition-opacity">Work</a>
-          <a href="#manifesto" className="hover:opacity-70 transition-opacity">Manifesto</a>
-          <a href="#contact" className="hover:opacity-70 transition-opacity">Contact</a>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="relative w-full h-screen flex flex-col justify-center px-8 lg:px-24">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="max-w-4xl z-10"
+    <div className="h-screen w-screen overflow-hidden relative bg-primary text-primary-foreground selection:bg-primary-foreground selection:text-primary">
+      {/* Background Images */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeFilm}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 0.4, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          className="absolute inset-0 z-0"
         >
-          <h1 className="text-6xl md:text-8xl lg:text-[9rem] leading-[0.85] mb-6">
-            <span className="block italic">The New</span>
-            <span className="block font-bold">Renaissance.</span>
-          </h1>
-          <p className="font-sans text-lg md:text-xl max-w-xl leading-relaxed mt-12 border-l-2 border-foreground pl-6 opacity-90">
-            Telling the self-fulfilling narrative of a cultural rebirth through the cinematic lens.
-          </p>
+          <div className="absolute inset-0 bg-primary/30 mix-blend-multiply z-10" />
+          <img 
+            src={films[activeFilm].image} 
+            alt={films[activeFilm].title}
+            className="w-full h-full object-cover"
+          />
         </motion.div>
+      </AnimatePresence>
 
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 right-24 w-64 h-64 border border-foreground/20 rounded-full animate-[spin_60s_linear_infinite]" />
-        <div className="absolute bottom-1/4 right-48 w-32 h-32 border border-foreground/30 rotate-45" />
-      </section>
+      {/* Vignette Overlay for readable text */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-primary via-transparent to-primary/40 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-primary/80 via-transparent to-transparent pointer-events-none w-3/4" />
 
-      {/* Selected Work Section */}
-      <section id="work" className="py-32 px-8 lg:px-24 bg-foreground text-background">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-          <h2 className="text-5xl md:text-7xl">Selected <br/><span className="italic opacity-80">Works</span></h2>
-          <p className="font-sans text-sm tracking-widest uppercase opacity-70 max-w-xs text-right">
-            Visual poetry crafted for the modern era.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-32">
-          {films.map((film, index) => (
-            <motion.div 
-              key={film.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className={`flex flex-col ${index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 lg:gap-24 items-center`}
-            >
-              <div className="w-full md:w-3/5 group overflow-hidden relative aspect-[16/9] md:aspect-[4/3] bg-background/10">
-                <div className="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-foreground/40 backdrop-blur-sm cursor-pointer">
-                  <div className="w-20 h-20 rounded-full border border-background flex items-center justify-center">
-                    <Play className="w-8 h-8 text-background ml-1" />
-                  </div>
-                </div>
-                <img 
-                  src={film.image} 
-                  alt={film.title}
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
-                  onError={(e) => {
-                    e.currentTarget.src = `https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=1600`;
-                  }}
-                />
-              </div>
-              
-              <div className="w-full md:w-2/5 flex flex-col justify-center">
-                <div className="flex items-center gap-4 mb-6 opacity-70 font-sans text-xs tracking-widest uppercase">
-                  <span>{film.year}</span>
-                  <span className="w-8 h-[1px] bg-background"></span>
-                  <span>{film.type}</span>
-                </div>
-                <h3 className="text-4xl md:text-5xl mb-6 leading-tight">{film.title}</h3>
-                <p className="font-sans opacity-80 leading-relaxed mb-12 text-lg">
-                  {film.description}
-                </p>
-                <button className="flex items-center gap-4 font-sans text-sm tracking-widest uppercase group w-fit hover:opacity-70 transition-opacity">
-                  <span>View Project</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Manifesto Section */}
-      <section id="manifesto" className="py-40 px-8 lg:px-24 flex flex-col items-center justify-center text-center">
-        <Camera className="w-12 h-12 mb-12 opacity-50" />
-        <h2 className="text-4xl md:text-6xl max-w-4xl leading-tight italic mb-12">
-          "We are not merely documenting reality; we are conjuring the visual vocabulary of tomorrow."
-        </h2>
-        <div className="w-[1px] h-24 bg-foreground/30 mb-12"></div>
-        <p className="font-sans text-lg max-w-2xl leading-relaxed opacity-90">
-          The new renaissance demands an honest, visceral, and unapologetic reflection of the human spirit. Through the interplay of light and shadow, we craft narratives that transcend time—anchored in classical beauty, yet fiercely modern.
-        </p>
-      </section>
-
-      {/* Footer / Contact */}
-      <footer id="contact" className="bg-foreground text-background py-24 px-8 lg:px-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-16">
-        <div>
-          <h2 className="text-5xl md:text-7xl mb-8">Let's Create<br/><span className="italic opacity-80">History.</span></h2>
-          <a href="mailto:studio@newrenaissance.film" className="font-sans text-xl md:text-2xl border-b border-background pb-2 hover:opacity-70 transition-opacity">
-            studio@newrenaissance.film
-          </a>
-        </div>
+      {/* UI Overlay */}
+      <div className="absolute inset-0 z-10 flex flex-col justify-between p-8 lg:p-16">
         
-        <div className="flex flex-col gap-4 font-sans text-sm tracking-widest uppercase">
-          <a href="#" className="hover:opacity-70 transition-opacity">Instagram</a>
-          <a href="#" className="hover:opacity-70 transition-opacity">Vimeo</a>
-          <a href="#" className="hover:opacity-70 transition-opacity">Journal</a>
+        {/* Header */}
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-0">
+          <div className="flex flex-col z-20">
+            <h1 
+              className="font-serif text-2xl md:text-3xl tracking-widest uppercase cursor-pointer" 
+              onClick={() => setActiveTab('home')}
+            >
+              N. Renaissance
+            </h1>
+            <span className="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase opacity-60 mt-2">
+              Cinematic Portfolio
+            </span>
+          </div>
+
+          <nav className="flex gap-8 md:gap-12 font-sans text-[10px] md:text-xs tracking-widest uppercase z-20">
+            <button 
+              onClick={() => setActiveTab('home')}
+              className={`hover:opacity-100 transition-opacity ${activeTab === 'home' ? 'opacity-100 border-b border-primary-foreground pb-1' : 'opacity-50'}`}
+            >
+              Works
+            </button>
+            <button 
+              onClick={() => setActiveTab('manifesto')}
+              className={`hover:opacity-100 transition-opacity ${activeTab === 'manifesto' ? 'opacity-100 border-b border-primary-foreground pb-1' : 'opacity-50'}`}
+            >
+              Manifesto
+            </button>
+            <button 
+              onClick={() => setActiveTab('contact')}
+              className={`hover:opacity-100 transition-opacity ${activeTab === 'contact' ? 'opacity-100 border-b border-primary-foreground pb-1' : 'opacity-50'}`}
+            >
+              Contact
+            </button>
+          </nav>
+        </header>
+
+        {/* Main Content Area */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-16 lg:gap-0 h-full pb-4 lg:pb-8 mt-16 lg:mt-0">
+          
+          {/* Dynamic Content based on Active Tab */}
+          <div className="w-full lg:w-1/2 max-w-2xl flex-1 flex flex-col justify-end z-20">
+            <AnimatePresence mode="wait">
+              {activeTab === 'home' && (
+                <motion.div
+                  key="works"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="flex items-center gap-4 mb-6 opacity-70 font-sans text-[10px] md:text-xs tracking-widest uppercase">
+                    <span>{films[activeFilm].year}</span>
+                    <span className="w-8 h-[1px] bg-primary-foreground"></span>
+                    <span>{films[activeFilm].type}</span>
+                  </div>
+                  <h2 className="text-5xl md:text-7xl font-serif mb-6 leading-tight">
+                    {films[activeFilm].title}
+                  </h2>
+                  <p className="font-sans opacity-80 leading-relaxed text-base md:text-lg max-w-md mb-10">
+                    {films[activeFilm].description}
+                  </p>
+                  <button className="flex items-center gap-6 font-sans text-xs tracking-widest uppercase group hover:opacity-70 transition-all">
+                    <div className="w-14 h-14 rounded-full border border-primary-foreground flex items-center justify-center group-hover:bg-primary-foreground group-hover:text-primary transition-colors duration-500">
+                      <Play className="w-4 h-4 ml-1" />
+                    </div>
+                    <span>Watch Trailer</span>
+                  </button>
+                </motion.div>
+              )}
+
+              {activeTab === 'manifesto' && (
+                <motion.div
+                  key="manifesto"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 className="text-3xl md:text-5xl font-serif leading-tight italic mb-8">
+                    "We are not merely documenting reality; we are conjuring the visual vocabulary of tomorrow."
+                  </h2>
+                  <p className="font-sans text-base md:text-lg leading-relaxed opacity-80 mb-6 max-w-lg">
+                    The new renaissance demands an honest, visceral, and unapologetic reflection of the human spirit. 
+                  </p>
+                  <p className="font-sans text-base md:text-lg leading-relaxed opacity-80 max-w-lg">
+                    Through the interplay of light and shadow, we craft narratives that transcend time—anchored in classical beauty, yet fiercely modern.
+                  </p>
+                </motion.div>
+              )}
+
+              {activeTab === 'contact' && (
+                <motion.div
+                  key="contact"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 className="text-5xl md:text-7xl font-serif mb-8 leading-tight">
+                    Let's Create <br/><span className="italic opacity-80">History.</span>
+                  </h2>
+                  <a href="mailto:studio@newrenaissance.film" className="block font-sans text-lg md:text-2xl border-b border-primary-foreground pb-2 w-fit hover:opacity-70 transition-opacity mb-12">
+                    studio@newrenaissance.film
+                  </a>
+                  <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 font-sans text-xs tracking-widest uppercase opacity-70">
+                    <a href="#" className="hover:opacity-100 transition-opacity">Instagram</a>
+                    <a href="#" className="hover:opacity-100 transition-opacity">Vimeo</a>
+                    <a href="#" className="hover:opacity-100 transition-opacity">Journal</a>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Film Selection / Right Column Menu */}
+          <div className="w-full lg:w-auto flex flex-col gap-6 lg:items-end z-20 mt-12 lg:mt-0">
+            {films.map((film, index) => (
+              <div 
+                key={film.id}
+                onMouseEnter={() => {
+                  if (activeTab === 'home') setActiveFilm(index);
+                }}
+                onClick={() => {
+                  setActiveTab('home');
+                  setActiveFilm(index);
+                }}
+                className={`cursor-pointer transition-all duration-500 flex items-center justify-end gap-6 group ${activeFilm === index && activeTab === 'home' ? 'opacity-100' : 'opacity-40 hover:opacity-70'}`}
+              >
+                <div className={`h-[1px] bg-primary-foreground transition-all duration-500 hidden lg:block ${activeFilm === index && activeTab === 'home' ? 'w-16' : 'w-0 group-hover:w-8'}`} />
+                <h3 className="font-serif text-xl md:text-3xl text-right transition-transform duration-500 group-hover:translate-x-[-10px] lg:group-hover:translate-x-0">
+                  {film.title}
+                </h3>
+              </div>
+            ))}
+          </div>
+
         </div>
-      </footer>
+      </div>
     </div>
   );
 }
