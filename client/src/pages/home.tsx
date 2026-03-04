@@ -10,10 +10,11 @@ export default function Home() {
     {
       id: 1,
       title: "21 Days Til Launch",
-      year: "2025",
-      type: "Short Film",
-      description: "A profound journey through the eyes of a modern artisan trapped in the echoes of the past.",
+      year: "2026",
+      type: "FEATURE LENGTH DOCUMENTARY",
+      description: "Embedded documentary showing the messy truth behind the walls of one of the world's biggest ai startups.",
       image: "/images/film-1.png",
+      trailerUrl: "https://x.com/amasad/status/2029251832460263632"
     },
     {
       id: 2,
@@ -22,6 +23,7 @@ export default function Home() {
       type: "Feature",
       description: "An architectural thriller exploring the duality of human nature against the backdrop of neoclassical ruins.",
       image: "/images/film-2.png",
+      trailerUrl: "#"
     },
     {
       id: 3,
@@ -30,6 +32,7 @@ export default function Home() {
       type: "Documentary",
       description: "A testament to the creators who are building the foundations of a new cultural era.",
       image: "/images/film-3.png",
+      trailerUrl: "#"
     },
   ];
 
@@ -122,12 +125,17 @@ export default function Home() {
                   <p className="font-sans opacity-80 leading-relaxed text-base md:text-lg max-w-md mb-10">
                     {films[activeFilm].description}
                   </p>
-                  <button className="flex items-center gap-6 font-sans text-xs tracking-widest uppercase group hover:opacity-70 transition-all">
+                  <a 
+                    href={films[activeFilm].trailerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-6 font-sans text-xs tracking-widest uppercase group hover:opacity-70 transition-all w-fit"
+                  >
                     <div className="w-14 h-14 rounded-full border border-primary-foreground flex items-center justify-center group-hover:bg-primary-foreground group-hover:text-primary transition-colors duration-500">
                       <Play className="w-4 h-4 ml-1" />
                     </div>
                     <span>Watch Trailer</span>
-                  </button>
+                  </a>
                 </motion.div>
               )}
 
