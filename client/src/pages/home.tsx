@@ -18,20 +18,11 @@ export default function Home() {
     },
     {
       id: 2,
-      title: "Symmetry of Shadows",
-      year: "2024",
-      type: "Feature",
-      description: "An architectural thriller exploring the duality of human nature against the backdrop of neoclassical ruins.",
+      title: "Write with Blood",
+      year: "2026",
+      type: "Short Film",
+      description: "The emotional truth of building a startup.",
       image: "/images/film-2.png",
-      trailerUrl: "#"
-    },
-    {
-      id: 3,
-      title: "Velvet Horizons",
-      year: "2023",
-      type: "Documentary",
-      description: "A testament to the creators who are building the foundations of a new cultural era.",
-      image: "/images/film-3.png",
       trailerUrl: "#"
     },
   ];
