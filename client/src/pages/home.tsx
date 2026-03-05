@@ -160,15 +160,15 @@ export default function Home() {
                   transition={{ duration: 0.5 }}
                 >
                   <h2 className="text-5xl md:text-7xl font-serif mb-8 leading-tight">
-                    Let's Create <br/><span className="italic opacity-80">History.</span>
+                    art. <span className="italic opacity-80">not videos.</span>
                   </h2>
-                  <a href="mailto:studio@newrenaissance.film" className="block font-sans text-lg md:text-2xl border-b border-primary-foreground pb-2 w-fit hover:opacity-70 transition-opacity mb-12">
-                    studio@newrenaissance.film
+                  <a href="mailto:jordan@findingfugami.com" className="block font-sans text-lg md:text-2xl border-b border-primary-foreground pb-2 w-fit hover:opacity-70 transition-opacity mb-12">
+                    jordan@findingfugami.com
                   </a>
                   <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 font-sans text-xs tracking-widest uppercase opacity-70">
-                    <a href="#" className="hover:opacity-100 transition-opacity">Instagram</a>
-                    <a href="#" className="hover:opacity-100 transition-opacity">Vimeo</a>
-                    <a href="#" className="hover:opacity-100 transition-opacity">Journal</a>
+                    <a href="https://instagram.com/byjmitch" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Instagram</a>
+                    <a href="https://x.com/byjmitch" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">X</a>
+                    <a href="https://substack.com/@byjmitch" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Substack</a>
                   </div>
                 </motion.div>
               )}
