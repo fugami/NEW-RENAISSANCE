@@ -40,8 +40,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="h-screen w-screen overflow-hidden relative bg-primary text-primary-foreground selection:bg-primary-foreground selection:text-primary">
-      {/* Background Images */}
+    <div className="h-[100dvh] w-screen overflow-hidden relative bg-primary text-primary-foreground selection:bg-primary-foreground selection:text-primary">
       {films.map((film, index) => (
         <motion.div
           key={film.id}
@@ -58,41 +57,44 @@ export default function Home() {
           />
         </motion.div>
       ))}
-      {/* Vignette Overlay for readable text */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-t from-primary via-transparent to-primary/40 pointer-events-none" />
-      <div className="absolute inset-0 z-0 bg-gradient-to-r from-primary/80 via-transparent to-transparent pointer-events-none w-3/4" />
-      {/* UI Overlay */}
-      <div className="absolute inset-0 z-10 flex flex-col justify-between p-8 lg:p-16">
+
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-primary via-primary/20 to-primary/60 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-primary/80 via-transparent to-transparent pointer-events-none w-3/4 hidden lg:block" />
+
+      <div className="absolute inset-0 z-10 flex flex-col p-6 md:p-8 lg:p-16">
         
-        {/* Header */}
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-0">
+        <header className="flex justify-between items-start shrink-0">
           <div className="flex flex-col z-20">
             <h1 
-              className="font-serif text-2xl md:text-3xl tracking-widest uppercase cursor-pointer" 
+              className="font-serif text-lg md:text-3xl tracking-widest uppercase cursor-pointer" 
               onClick={() => setActiveTab('home')}
+              data-testid="link-home"
             >
               New Renaissance
             </h1>
-            <span className="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase opacity-60 mt-2">
+            <span className="font-sans text-[9px] md:text-xs tracking-[0.3em] uppercase opacity-60 mt-1">
               ART STUDIO
             </span>
           </div>
 
-          <nav className="flex gap-8 md:gap-12 font-sans text-[10px] md:text-xs tracking-widest uppercase z-20">
+          <nav className="flex gap-5 md:gap-12 font-sans text-[9px] md:text-xs tracking-widest uppercase z-20 pt-1">
             <button 
               onClick={() => setActiveTab('home')}
+              data-testid="button-works"
               className={`hover:opacity-100 transition-opacity ${activeTab === 'home' ? 'opacity-100 border-b border-primary-foreground pb-1' : 'opacity-50'}`}
             >
               Works
             </button>
             <button 
               onClick={() => setActiveTab('manifesto')}
+              data-testid="button-manifesto"
               className={`hover:opacity-100 transition-opacity ${activeTab === 'manifesto' ? 'opacity-100 border-b border-primary-foreground pb-1' : 'opacity-50'}`}
             >
               Manifesto
             </button>
             <button 
               onClick={() => setActiveTab('contact')}
+              data-testid="button-contact"
               className={`hover:opacity-100 transition-opacity ${activeTab === 'contact' ? 'opacity-100 border-b border-primary-foreground pb-1' : 'opacity-50'}`}
             >
               Contact
@@ -100,39 +102,38 @@ export default function Home() {
           </nav>
         </header>
 
-        {/* Main Content Area */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-16 lg:gap-0 h-full pb-4 lg:pb-8 mt-16 lg:mt-0">
+        <div className="flex flex-col lg:flex-row flex-1 min-h-0 justify-end lg:justify-between lg:items-end gap-8 lg:gap-0 pb-2 lg:pb-8">
           
-          {/* Dynamic Content based on Active Tab */}
-          <div className="w-full lg:w-1/2 max-w-2xl flex-1 flex flex-col justify-end z-20">
+          <div className="w-full lg:w-1/2 max-w-2xl z-20">
             <AnimatePresence mode="wait">
               {activeTab === 'home' && (
                 <motion.div
-                  key="works"
-                  initial={{ opacity: 0, y: 20 }}
+                  key={`works-${activeFilm}`}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.35 }}
                 >
-                  <div className="flex items-center gap-4 mb-6 opacity-70 font-sans text-[10px] md:text-xs tracking-widest uppercase">
+                  <div className="flex items-center gap-3 mb-3 md:mb-6 opacity-70 font-sans text-[9px] md:text-xs tracking-widest uppercase">
                     <span>{films[activeFilm].year}</span>
-                    <span className="w-8 h-[1px] bg-primary-foreground"></span>
+                    <span className="w-6 md:w-8 h-[1px] bg-primary-foreground"></span>
                     <span>{films[activeFilm].type}</span>
                   </div>
-                  <h2 className="text-5xl md:text-7xl font-serif mb-6 leading-tight">
+                  <h2 className="text-3xl md:text-7xl font-serif mb-3 md:mb-6 leading-tight" data-testid="text-film-title">
                     {films[activeFilm].title}
                   </h2>
-                  <p className="font-sans opacity-80 leading-relaxed text-base md:text-lg max-w-md mb-10">
+                  <p className="font-sans opacity-80 leading-relaxed text-sm md:text-lg max-w-md mb-6 md:mb-10">
                     {films[activeFilm].description}
                   </p>
                   <a 
                     href={films[activeFilm].trailerUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-6 font-sans text-xs tracking-widest uppercase group hover:opacity-70 transition-all w-fit"
+                    data-testid="link-watch"
+                    className="flex items-center gap-4 md:gap-6 font-sans text-[10px] md:text-xs tracking-widest uppercase group hover:opacity-70 transition-all w-fit"
                   >
-                    <div className="w-14 h-14 rounded-full border border-primary-foreground flex items-center justify-center group-hover:bg-primary-foreground group-hover:text-primary transition-colors duration-500">
-                      <Play className="w-4 h-4 ml-1" />
+                    <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border border-primary-foreground flex items-center justify-center group-hover:bg-primary-foreground group-hover:text-primary transition-colors duration-500">
+                      <Play className="w-3 h-3 md:w-4 md:h-4 ml-0.5" />
                     </div>
                     <span>{films[activeFilm].ctaLabel}</span>
                   </a>
@@ -142,41 +143,42 @@ export default function Home() {
               {activeTab === 'manifesto' && (
                 <motion.div
                   key="manifesto"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.35 }}
                 >
-                  <h2 className="text-3xl md:text-5xl font-serif leading-tight italic">"Telling the self-fulfilling prophecy of the New Renaissance."</h2>
+                  <h2 className="text-2xl md:text-5xl font-serif leading-tight italic" data-testid="text-manifesto">
+                    "The narrative we cultivate is the narrative that wins."
+                  </h2>
                 </motion.div>
               )}
 
               {activeTab === 'contact' && (
                 <motion.div
                   key="contact"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.35 }}
                 >
-                  <h2 className="text-5xl md:text-7xl font-serif mb-8 leading-tight">
+                  <h2 className="text-4xl md:text-7xl font-serif mb-6 md:mb-8 leading-tight" data-testid="text-contact-heading">
                     art. <span className="italic opacity-80">not videos.</span>
                   </h2>
-                  <a href="mailto:jordan@findingfugami.com" className="block font-sans text-lg md:text-2xl border-b border-primary-foreground pb-2 w-fit hover:opacity-70 transition-opacity mb-12">
+                  <a href="mailto:jordan@findingfugami.com" data-testid="link-email" className="block font-sans text-base md:text-2xl border-b border-primary-foreground pb-2 w-fit hover:opacity-70 transition-opacity mb-8 md:mb-12">
                     jordan@findingfugami.com
                   </a>
-                  <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 font-sans text-xs tracking-widest uppercase opacity-70">
-                    <a href="https://instagram.com/byjmitch" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Instagram</a>
-                    <a href="https://x.com/byjmitch" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">X</a>
-                    <a href="https://substack.com/@byjmitch" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Substack</a>
+                  <div className="flex gap-6 md:gap-12 font-sans text-[10px] md:text-xs tracking-widest uppercase opacity-70">
+                    <a href="https://instagram.com/byjmitch" target="_blank" rel="noopener noreferrer" data-testid="link-instagram" className="hover:opacity-100 transition-opacity">Instagram</a>
+                    <a href="https://x.com/byjmitch" target="_blank" rel="noopener noreferrer" data-testid="link-x" className="hover:opacity-100 transition-opacity">X</a>
+                    <a href="https://substack.com/@byjmitch" target="_blank" rel="noopener noreferrer" data-testid="link-substack" className="hover:opacity-100 transition-opacity">Substack</a>
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          {/* Film Selection / Right Column Menu */}
-          <div className="w-full lg:w-auto flex flex-col gap-6 lg:items-end z-20 mt-12 lg:mt-0">
+          <div className="w-full lg:w-auto flex flex-row lg:flex-col gap-4 md:gap-6 lg:items-end z-20 overflow-x-auto pb-1 lg:pb-0">
             {films.map((film, index) => (
               <div 
                 key={film.id}
@@ -187,10 +189,11 @@ export default function Home() {
                   setActiveTab('home');
                   setActiveFilm(index);
                 }}
-                className={`cursor-pointer transition-all duration-500 flex items-center justify-end gap-6 group ${activeFilm === index && activeTab === 'home' ? 'opacity-100' : 'opacity-40 hover:opacity-70'}`}
+                data-testid={`button-film-${film.id}`}
+                className={`cursor-pointer transition-all duration-300 flex items-center gap-4 lg:gap-6 group shrink-0 ${activeFilm === index && activeTab === 'home' ? 'opacity-100' : 'opacity-40 hover:opacity-70'}`}
               >
                 <div className={`h-[1px] bg-primary-foreground transition-all duration-500 hidden lg:block ${activeFilm === index && activeTab === 'home' ? 'w-16' : 'w-0 group-hover:w-8'}`} />
-                <h3 className="font-serif text-xl md:text-3xl text-right transition-transform duration-500 group-hover:translate-x-[-10px] lg:group-hover:translate-x-0">
+                <h3 className="font-serif text-base md:text-xl lg:text-3xl text-right whitespace-nowrap">
                   {film.title}
                 </h3>
               </div>
