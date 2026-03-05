@@ -14,7 +14,8 @@ export default function Home() {
       type: "FEATURE LENGTH DOCUMENTARY",
       description: "Embedded documentary with Replit.",
       image: "/images/film-1.jpg",
-      trailerUrl: "https://x.com/amasad/status/2029251832460263632"
+      trailerUrl: "https://x.com/amasad/status/2029251832460263632",
+      ctaLabel: "Watch Trailer"
     },
     {
       id: 2,
@@ -23,7 +24,8 @@ export default function Home() {
       type: "Short Film",
       description: "The emotional truth of building a startup.",
       image: "/images/film-2.jpg",
-      trailerUrl: "#"
+      trailerUrl: "https://x.com/hf0/status/2026350458126958939/video/1",
+      ctaLabel: "WATCH FILM"
     },
     {
       id: 3,
@@ -32,7 +34,8 @@ export default function Home() {
       type: "Short Film",
       description: "A message for founders.",
       image: "/images/film-3.jpg",
-      trailerUrl: "#"
+      trailerUrl: "https://x.com/davefontenot/status/1986874442610581617/video/1",
+      ctaLabel: "WATCH FILM"
     },
   ];
 
@@ -43,7 +46,7 @@ export default function Home() {
         <motion.div
           key={film.id}
           animate={{ opacity: activeFilm === index ? 0.4 : 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="absolute inset-0 z-0"
           style={{ pointerEvents: "none" }}
         >
@@ -70,10 +73,10 @@ export default function Home() {
               className="font-serif text-2xl md:text-3xl tracking-widest uppercase cursor-pointer" 
               onClick={() => setActiveTab('home')}
             >
-              N. Renaissance
+              New Renaissance
             </h1>
             <span className="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase opacity-60 mt-2">
-              Cinematic Portfolio
+              ART STUDIO
             </span>
           </div>
 
@@ -133,7 +136,7 @@ export default function Home() {
                     <div className="w-14 h-14 rounded-full border border-primary-foreground flex items-center justify-center group-hover:bg-primary-foreground group-hover:text-primary transition-colors duration-500">
                       <Play className="w-4 h-4 ml-1" />
                     </div>
-                    <span>Watch Trailer</span>
+                    <span>{films[activeFilm].ctaLabel}</span>
                   </a>
                 </motion.div>
               )}
