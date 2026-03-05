@@ -147,9 +147,7 @@ export default function Home() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h2 className="text-3xl md:text-5xl font-serif leading-tight italic">
-                    "The narrative we cultivate is the narrative that wins."
-                  </h2>
+                  <h2 className="text-3xl md:text-5xl font-serif leading-tight italic">"Telling the self-fulfilling prophecy of the New Renaissance."</h2>
                 </motion.div>
               )}
 
