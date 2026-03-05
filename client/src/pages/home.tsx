@@ -39,23 +39,22 @@ export default function Home() {
   return (
     <div className="h-screen w-screen overflow-hidden relative bg-primary text-primary-foreground selection:bg-primary-foreground selection:text-primary">
       {/* Background Images */}
-      <AnimatePresence mode="wait">
+      {films.map((film, index) => (
         <motion.div
-          key={activeFilm}
-          initial={{ opacity: 0, scale: 1.02 }}
-          animate={{ opacity: 0.4, scale: 1 }}
-          exit={{ opacity: 0 }}
+          key={film.id}
+          animate={{ opacity: activeFilm === index ? 0.4 : 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="absolute inset-0 z-0"
+          style={{ pointerEvents: "none" }}
         >
           <div className="absolute inset-0 bg-primary/30 mix-blend-multiply z-10" />
           <img 
-            src={films[activeFilm].image} 
-            alt={films[activeFilm].title}
+            src={film.image} 
+            alt={film.title}
             className="w-full h-full object-cover"
           />
         </motion.div>
-      </AnimatePresence>
+      ))}
 
       {/* Vignette Overlay for readable text */}
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-primary via-transparent to-primary/40 pointer-events-none" />
