@@ -147,13 +147,9 @@ export default function Home() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h2 className="text-3xl md:text-5xl font-serif leading-tight italic mb-8">"Telling the self-fulfilling prophecy of the new renaissance.</h2>
-                  <p className="font-sans text-base md:text-lg leading-relaxed opacity-80 mb-6 max-w-lg">
-                    The new renaissance demands an honest, visceral, and unapologetic reflection of the human spirit. 
-                  </p>
-                  <p className="font-sans text-base md:text-lg leading-relaxed opacity-80 max-w-lg">
-                    Through the interplay of light and shadow, we craft narratives that transcend time—anchored in classical beauty, yet fiercely modern.
-                  </p>
+                  <h2 className="text-3xl md:text-5xl font-serif leading-tight italic">
+                    "The narrative we cultivate is the narrative that wins."
+                  </h2>
                 </motion.div>
               )}
 
