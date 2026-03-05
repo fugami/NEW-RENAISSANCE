@@ -12,7 +12,7 @@ export default function Home() {
       title: "21 Days Til Launch",
       year: "2026",
       type: "FEATURE LENGTH DOCUMENTARY",
-      description: "Embedded documentary showing the messy truth behind the walls of one of the world's biggest ai startups.",
+      description: "Embedded documentary with Replit.",
       image: "/images/film-1.jpg",
       trailerUrl: "https://x.com/amasad/status/2029251832460263632"
     },
@@ -31,7 +31,7 @@ export default function Home() {
       year: "2025",
       type: "Short Film",
       description: "A message for founders.",
-      image: "/images/film-2.jpg",
+      image: "/images/film-3.jpg",
       trailerUrl: "#"
     },
   ];
@@ -42,10 +42,10 @@ export default function Home() {
       <AnimatePresence mode="wait">
         <motion.div
           key={activeFilm}
-          initial={{ opacity: 0, scale: 1.05 }}
+          initial={{ opacity: 0, scale: 1.02 }}
           animate={{ opacity: 0.4, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="absolute inset-0 z-0"
         >
           <div className="absolute inset-0 bg-primary/30 mix-blend-multiply z-10" />
