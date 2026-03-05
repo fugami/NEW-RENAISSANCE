@@ -58,11 +58,9 @@ export default function Home() {
           />
         </motion.div>
       ))}
-
       {/* Vignette Overlay for readable text */}
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-primary via-transparent to-primary/40 pointer-events-none" />
       <div className="absolute inset-0 z-0 bg-gradient-to-r from-primary/80 via-transparent to-transparent pointer-events-none w-3/4" />
-
       {/* UI Overlay */}
       <div className="absolute inset-0 z-10 flex flex-col justify-between p-8 lg:p-16">
         
@@ -149,9 +147,7 @@ export default function Home() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h2 className="text-3xl md:text-5xl font-serif leading-tight italic mb-8">
-                    "We are not merely documenting reality; we are conjuring the visual vocabulary of tomorrow."
-                  </h2>
+                  <h2 className="text-3xl md:text-5xl font-serif leading-tight italic mb-8">"Telling the self-fulfilling prophecy of the new renaissance.</h2>
                   <p className="font-sans text-base md:text-lg leading-relaxed opacity-80 mb-6 max-w-lg">
                     The new renaissance demands an honest, visceral, and unapologetic reflection of the human spirit. 
                   </p>
